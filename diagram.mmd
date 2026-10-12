@@ -1,2 +1,8 @@
-<!-- Save your AI-generated Mermaid flowchart source here (Tinker 3B, Part 4). -->
-<!-- Replace this comment with a fenced ```mermaid``` code block: input -> process/score -> output. -->
+flowchart TD
+    CSV[data/study_spots.csv] -->|path| LOAD[load_study_spots]
+    LOAD -->|"list[dict] with typed fields"| SCORE[score_study_spot]
+    PROFILE["Student profile<br/>(max_noise, max_distance, min_seats)"] --> SCORE
+    SCORE -->|"score + reasons per spot"| RANK[rank_study_spots]
+    K["Parameter k"] --> RANK
+    RANK -->|"top-k: (spot, score, reasons)"| FMT[format_results]
+    FMT -->|"formatted strings"| OUT[Terminal / Streamlit UI]
